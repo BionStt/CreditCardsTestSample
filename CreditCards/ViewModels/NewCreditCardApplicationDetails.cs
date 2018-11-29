@@ -16,9 +16,9 @@ namespace CreditCards.ViewModels
         [Required(ErrorMessage = "Please provide a last name")]
         public string LastName { get; set; }
 
-        [Display(Name = "Frequent Flyer Number")]
-        [Required(ErrorMessage = "Please provide a frequent flyer number")]
-        public string FrequentFlyerNumber { get; set; }
+        //[Display(Name = "Frequent Flyer Number")]
+        //[Required(ErrorMessage = "Please provide a frequent flyer number")]
+        //public string FrequentFlyerNumber { get; set; }
 
         [Display(Name = "Age (in years)")]
         [Required(ErrorMessage = "Please provide an age in years")]
