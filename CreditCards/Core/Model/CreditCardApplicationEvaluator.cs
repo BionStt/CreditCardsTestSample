@@ -13,6 +13,10 @@ namespace CreditCards.Core.Model
         private const int LowIncomeThreshhold = 20_000;
         private IFrequentFlyerNumberValidator _validator;
 
+        public CreditCardApplicationEvaluator()
+        {
+        }
+
         public CreditCardApplicationEvaluator(IFrequentFlyerNumberValidator validator)
         {
             _validator = validator;
@@ -25,10 +29,10 @@ namespace CreditCards.Core.Model
                 return CreditCardApplicationDecision.AutoAccepted;
             }
 
-            //if (!_validator.IsValid(application.FrequentFlyerNumber))
-            //{
-            //    return CreditCardApplicationDecision.ReferredToHuman;
-            //}
+            if (!_validator.IsValid(application.FrequentFlyerNumber))
+            {
+                return CreditCardApplicationDecision.ReferredToHuman;
+            }
 
             if (application.Age <= AutoReferralMaxAge)
             {
