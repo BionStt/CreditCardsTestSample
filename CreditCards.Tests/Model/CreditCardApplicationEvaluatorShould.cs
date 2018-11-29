@@ -1,4 +1,6 @@
-﻿using CreditCards.Core.Model;
+﻿using CreditCards.Core.Interfaces;
+using CreditCards.Core.Model;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,7 +35,10 @@ namespace CreditCards.Tests.Model
         [InlineData(int.MinValue)]
         public void ReferYoungApplicantsWhoAreNotHighIncome(int age)
         {
-            var sut = new CreditCardApplicationEvaluator();
+            var mockValidator = new Mock<IFrequentFlyerNumberValidator>();
+            mockValidator.Setup(x => x.IsValid(It.IsAny<string>())).Returns(false);
+
+            var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
             var application = new CreditCardApplication
             {
                 GrossAnnualIncome = ExpectedHighIncomeThreshhold - 1,
@@ -50,7 +55,10 @@ namespace CreditCards.Tests.Model
         [InlineData(ExpectedHighIncomeThreshhold - 1)]
         public void ReferNonYoungApplicantsWhoAreMiddleIncome(int income)
         {
-            var sut = new CreditCardApplicationEvaluator();
+            var mockValidator = new Mock<IFrequentFlyerNumberValidator>();
+            mockValidator.Setup(x => x.IsValid(It.IsAny<string>())).Returns(false);
+
+            var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
             var application = new CreditCardApplication
             {
                 GrossAnnualIncome = income,
@@ -67,7 +75,10 @@ namespace CreditCards.Tests.Model
         [InlineData(int.MinValue)]
         public void DeclineAllApplicantsWhoAreLowIncome(int income)
         {
-            var sut = new CreditCardApplicationEvaluator();
+            var mockValidator = new Mock<IFrequentFlyerNumberValidator>();
+            mockValidator.Setup(x => x.IsValid(It.IsAny<string>())).Returns(true);
+
+            var sut = new CreditCardApplicationEvaluator(mockValidator.Object);
 
             var application = new CreditCardApplication
             {
