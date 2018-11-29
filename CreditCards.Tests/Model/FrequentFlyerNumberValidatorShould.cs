@@ -70,10 +70,8 @@ namespace CreditCards.Tests.Model
         public void RejectEmptyFrequentFlyerNumber(string number)
         {
             var sut = new FrequentFlyerNumberValidator();
-
             Assert.False(sut.IsValid(number));
         }
-
 
     }
 }
